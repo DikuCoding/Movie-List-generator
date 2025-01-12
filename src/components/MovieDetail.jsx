@@ -49,12 +49,14 @@ const MovieDetail = () => {
   return (
     <div className="flex flex-col items-center p-4 bg-gray-100 min-h-screen">
       <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="flex flex-col md:flex-row">
+        <div className=" md:flex-row">
+        <div>
           <img
             src={`https://image.tmdb.org/t/p/w400${movieDetails.poster_path}`}
             alt={movieDetails.title}
             className="w-full md:w-1/3 object-cover"
           />
+        </div>
           <div className="p-6 flex-1">
             <h1 className="text-2xl font-bold mb-4">{movieDetails.title}</h1>
             <p className="text-gray-600 mb-2">
