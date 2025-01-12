@@ -119,7 +119,7 @@ body {
 }
 
 .input-field, .textarea-field {
-  width: 60%;
+  width: 40%;
   padding: 8px;
   margin: 5px 0;
   border: 1px solid #ccc;

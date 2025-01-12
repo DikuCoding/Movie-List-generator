@@ -1,78 +1,75 @@
-import React, { useState } from 'react';
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addReview, selectReview } from '../redux/movieDetailSlice';
+import { setReviews, selectReviews } from "../redux/reviewSlice";
 
 const ReviewForm = () => {
+  const dispatch = useDispatch();
+  const reviews = useSelector(selectReviews);
 
-  const dispatch = useDispatch()
-  const reviews = useSelector(selectReview)
-//   const [formData, setFormData] = useState({
-// author_details: {
-//   avatar_path:"",
-//   rating: "",
-//   username: ""
-// },
-// content: ""
-//   });
-  // const [submittedData, setSubmittedData] = useState(null);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  // };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const name=e.target.name.value;
-    const content = e.target.content.value
+    const name = e.target.name.value.trim();
+    const content = e.target.content.value.trim();
+
+    if (!name || !content) {
+      alert("Both fields are required!");
+      return;
+    }
 
     const reviewObject = {
       author_details: {
-      rating: "",
-      username: name
+        rating: "",
+        username: name,
       },
       content: content,
-    }
-        console.log(reviewObject);
-        console.log(e.target);
-        e.target.reset();
+    };
 
-        dispatch(addReview([...reviews,reviewObject]));
-    // const reviewData = {...formData}
-    // console.log(reviewData)
-    // setSubmittedData(formData);
-    // dispatch(addReview(reviewData))
+    dispatch(setReviews([...reviews, reviewObject]));
+    e.target.reset();
   };
-  return (
-    <>
-      <h2 className="section-title">Add a comment:</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="comment-section">
-          <input type="text" id="username" name="name"  className="input-field" placeholder='Enter username'/>
-          <textarea placeholder="Enter your comments" id='message' name='content' className="textarea-field"  ></textarea>
-          <button className="submit-btn">SUBMIT</button>
-        </div>
-      </form>
-      {/* <h2 className="section-title">Add a comment:</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="comment-section">
-          <input type="text" id="username" name="username" value={formData.author_details.username} onChange={handleChange} className="input-field" placeholder='Enter username'/>
-          <textarea placeholder="Enter your comments" id='message' name='content' className="textarea-field" value={formData.content} onChange={handleChange}></textarea>
-          <button className="submit-btn">SUBMIT</button>
-        </div>
-      </form> */}
-      {/* {submittedData && (
-        <div className="review-card">
-        <p className="review-author"><strong>Author:</strong>{submittedData.author_details.username}</p>
-        <p className="review-content">{submittedData.content}</p>
-      </div>
-      )} */}
 
-      {/* {
-        submittedData.map((review, index)=>(
-          
-        ))
-      } */}
-    </>
+  return (
+    <div className="mt-8">
+      <h2 className="text-lg font-semibold mb-4 text-gray-800">Add a Comment:</h2>
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6">
+        <div className="mb-4">
+          <label
+            htmlFor="username"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="name"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div className="mb-4">
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Comment
+          </label>
+          <textarea
+            id="message"
+            name="content"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+            placeholder="Enter your comment"
+            rows="4"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   );
 };
 
