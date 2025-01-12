@@ -13,6 +13,7 @@ const Review = ({username, content}) => {
               {movie.release_date}
             </p>
           </div>
+          
     </div>
     </>
   )
