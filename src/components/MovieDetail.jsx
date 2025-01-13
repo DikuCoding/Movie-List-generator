@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, {useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMovieDetails, selectMovieDetails } from "../redux/movieSlice";
@@ -24,7 +24,7 @@ const MovieDetail = () => {
       }
     };
     fetchMovieData();
-  }, [movieId]);
+  }, [movieId, dispatch]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -39,7 +39,7 @@ const MovieDetail = () => {
       }
     };
     fetchReviews();
-  }, [movieId]);
+  }, [movieId, dispatch]);
 
   const truncateText = (text, limit) => {
     if (text.length <= limit) return text;
